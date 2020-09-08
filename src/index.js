@@ -7,7 +7,8 @@ import './styles/tailwind.css'
 import 'antd/dist/antd.less'
 
 ReactDOM.render(
-  <React.StrictMode>{ConfigRoute}</React.StrictMode>,
+  // <React.StrictMode>{ConfigRoute}</React.StrictMode>,
+  <div>{ConfigRoute}</div>,
   document.getElementById('root'),
 )
 
