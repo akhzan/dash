@@ -12,4 +12,14 @@
   h2 {
     @apply text-xl;
   }
+  img,
+  svg,
+  video,
+  canvas,
+  audio,
+  iframe,
+  embed,
+  object {
+    vertical-align: initial;
+  }
 }

@@ -602,6 +602,17 @@ h2 {
   font-size: 1.25rem;
 }
 
+img,
+  svg,
+  video,
+  canvas,
+  audio,
+  iframe,
+  embed,
+  object {
+  vertical-align: initial;
+}
+
 .container {
   width: 100%;
 }

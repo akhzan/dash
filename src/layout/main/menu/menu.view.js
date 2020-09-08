@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons'
 
 const MenuView = () => (
-  <Menu mode="inline" defaultSelectedKeys={['4']}>
+  <Menu className="border-r-0" mode="inline" defaultSelectedKeys={['4']}>
     <Menu.Item key="/" icon={<DashboardOutlined />}>
       Dashboard
     </Menu.Item>

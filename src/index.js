@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import * as serviceWorker from './serviceWorker'
 
 import ConfigRoute from './router'
-import './styles/tailwind.css'
 import 'antd/dist/antd.less'
+import './styles/tailwind.css'
 
 ReactDOM.render(
   // <React.StrictMode>{ConfigRoute}</React.StrictMode>,
