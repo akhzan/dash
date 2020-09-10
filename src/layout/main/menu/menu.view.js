@@ -1,30 +1,23 @@
 import React from 'react'
 import { Menu } from 'antd'
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  DashboardOutlined,
-} from '@ant-design/icons'
+import { DashboardOutlined, TableOutlined } from '@ant-design/icons'
+import { useLocation, NavLink } from 'react-router-dom'
 
-const MenuView = () => (
-  <Menu className="border-r-0" mode="inline" defaultSelectedKeys={['4']}>
-    <Menu.Item key="/" icon={<DashboardOutlined />}>
-      Dashboard
-    </Menu.Item>
-    <Menu.Item key="1" icon={<UserOutlined />}>
-      nav 1
-    </Menu.Item>
-    <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-      nav 2
-    </Menu.Item>
-    <Menu.Item key="3" icon={<UploadOutlined />}>
-      nav 3
-    </Menu.Item>
-    <Menu.Item key="4" icon={<UserOutlined />}>
-      nav 4
-    </Menu.Item>
-  </Menu>
-)
+import { getActiveMenu, MENU_KEYS, MENUS } from '../../../config/menu'
+
+const MenuView = () => {
+  const location = useLocation()
+  const activeMenu = getActiveMenu(location.pathname)
+  return (
+    <Menu className="border-r-0" mode="inline" selectedKeys={[activeMenu]}>
+      <Menu.Item key={MENU_KEYS.HOME} icon={<DashboardOutlined />}>
+        <NavLink to={MENUS.HOME}>Dashboard</NavLink>
+      </Menu.Item>
+      <Menu.Item key={MENU_KEYS.TABLE} icon={<TableOutlined />}>
+        <NavLink to={MENUS.TABLE}>Table</NavLink>
+      </Menu.Item>
+    </Menu>
+  )
+}
 
 export default MenuView

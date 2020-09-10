@@ -10,7 +10,6 @@ const Home = () => {
       Promise.all([apis.getLatest(), apis.getHistories()]).then((res) => {
         const { rates: ratesLatest } = res[0]
         const { rates: ratesHistories } = res[1]
-        console.log(res[1])
         setLatest({
           IDR: ratesLatest.IDR,
           JPY: ratesLatest.JPY,
