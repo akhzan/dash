@@ -59,7 +59,7 @@ const HomeView = ({ latest, histories }) => (
         </Row>
         <Card>
           <p className="text-lg mb-6">IDR in Last 30 Days</p>
-          <ResponsiveContainer width="100%" height={320}>
+          <ResponsiveContainer width="100%" height={520}>
             <LineChart data={histories}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date" />
@@ -72,11 +72,11 @@ const HomeView = ({ latest, histories }) => (
         </Card>
       </Col>
       <Col span={12}>
-        <Card>
-          <p className="text-lg mb-6">Last 30 Days Currencies</p>
+        <Card className="h-full">
+          <p className="text-lg mb-8">Last 30 Days Currencies</p>
           <Table
             rowKey="date"
-            size="middle"
+            // size="middle"
             columns={columns}
             dataSource={histories}
           />
