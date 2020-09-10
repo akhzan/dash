@@ -17,10 +17,21 @@ const Home = () => {
           KRW: ratesLatest.KRW,
         })
         setHistories(
-          Object.keys(ratesHistories).map((date) => ({
-            ...ratesHistories[date],
-            date,
-          })),
+          Object.keys(ratesHistories)
+            .map((date) => {
+              const currData = ratesHistories[date]
+              return {
+                IDR: Math.round((currData.IDR + Number.EPSILON) * 100) / 100,
+                JPY: Math.round((currData.JPY + Number.EPSILON) * 100) / 100,
+                KRW: Math.round((currData.KRW + Number.EPSILON) * 100) / 100,
+                date,
+              }
+            })
+            .sort(
+              (a, b) =>
+                parseInt(b.date.split('-').join('')) -
+                parseInt(a.date.split('-').join('')),
+            ),
         )
       })
     }
