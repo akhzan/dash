@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import TableView from './index.view'
-import { apis } from '../../api'
+import React from 'react'
 
-const Table = () => {
-  const [data, setData] = useState({})
-  const getData = async () => {
-    await apis.getHistories().then((res) => {
+import { apis } from '../../api'
+import Table from '../../layout/table'
+
+const TablePage = () => {
+  const list = {
+    api: apis.getHistories,
+    transform: (res) => {
       const { rates } = res
       const resData = Object.keys(rates)
         .map((date) => {
@@ -22,16 +23,10 @@ const Table = () => {
             parseInt(b.date.split('-').join('')) -
             parseInt(a.date.split('-').join('')),
         )
-      setData({ data: resData, count: resData.length })
-    })
+      return { data: resData, count: resData.length }
+    },
   }
-  useEffect(() => {
-    if (!data.data) {
-      getData()
-    }
-  }, [data.data])
-  console.log(data)
-  return <TableView data={data} />
+  return <Table list={list} />
 }
 
-export default Table
+export default TablePage

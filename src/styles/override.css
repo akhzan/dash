@@ -1,0 +1,10 @@
+.app-filter .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  padding: 0;
+  padding-left: 0;
+  cursor: auto;
+}
+
+.app-filter .ant-collapse-content > .ant-collapse-content-box {
+  padding: 0;
+  padding-bottom: 0 !important;
+}

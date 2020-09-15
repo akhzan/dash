@@ -4,6 +4,7 @@ src/*.test.js
 src/setupTests.js
 .eslintrc.js
 craco.config.js
+tailwind.config.js
 
 # dependencies
 /node_modules
