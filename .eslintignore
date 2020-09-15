@@ -2,6 +2,8 @@ src/serviceWorker.js
 src/**/*.test.js
 src/*.test.js
 src/setupTests.js
+.eslintrc.js
+craco.config.js
 
 # dependencies
 /node_modules

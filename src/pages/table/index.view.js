@@ -1,9 +1,34 @@
 import React from 'react'
+import { Table } from 'antd'
+
 import MainView from '../../layout/main/index.view'
 
-const TableView = () => (
+const columns = [
+  {
+    title: 'Date',
+    dataIndex: 'date',
+    key: 'date',
+  },
+  {
+    title: 'IDR',
+    dataIndex: 'IDR',
+    key: 'IDR',
+  },
+  {
+    title: 'JPY',
+    dataIndex: 'JPY',
+    key: 'JPY',
+  },
+  {
+    title: 'KRW',
+    dataIndex: 'KRW',
+    key: 'KRW',
+  },
+]
+
+const TableView = ({ data }) => (
   <MainView title="Table">
-    <p>Table</p>
+    <Table rowKey="date" columns={columns} dataSource={data.data} />
   </MainView>
 )
 
