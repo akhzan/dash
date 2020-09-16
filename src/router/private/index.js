@@ -4,7 +4,7 @@ import { MENUS } from '../../config/menu'
 import { auth } from '../../utils/auth'
 
 const PrivateRoute = ({ children, ...rest }) => {
-  const { isAuthenticated } = auth.getAuth()
+  const isAuthenticated = auth.getIsAuthenticated()
   return (
     <Route
       {...rest}

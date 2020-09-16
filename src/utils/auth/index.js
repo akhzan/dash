@@ -40,38 +40,39 @@ export const auth = {
     removeCookie(COOKIES.IMAGE)
     removeCookie(COOKIES.TOKEN)
   },
-  getAuth: () => {
-    const isAuthenticated = auth.isAuthenticated || getCookie(COOKIES.TOKEN)
-    const email = auth.email || getCookie(COOKIES.EMAIL)
-    const name = auth.name || getCookie(COOKIES.NAME)
-    const imageUrl = auth.imageUrl || getCookie(COOKIES.IMAGE)
+  getIsAuthenticated: () => {
+    const isAuthenticated = auth.isAuthenticated || !!getCookie(COOKIES.TOKEN)
+    auth.isAuthenticated = isAuthenticated
+    return isAuthenticated
+  },
+  getToken: () => {
     const token = auth.token || getCookie(COOKIES.TOKEN)
+    auth.token = token
+    return token
+  },
+  getRole: () => {
     let permission = auth.permission
     let role = auth.role
     let userId = auth.userId
-    if (!(permission && role && userId)) {
+    if (!role) {
+      const token = auth.token || getCookie(COOKIES.TOKEN)
       const data = decode(token)
       userId = data.user_id
       permission = data.privilege
       role = data.group
     }
-    auth.isAuthenticated = isAuthenticated
-    auth.email = email
-    auth.name = name
-    auth.imageUrl = imageUrl
-    auth.token = token
     auth.userId = userId
     auth.permission = permission
     auth.role = role
-    return {
-      isAuthenticated,
-      email,
-      name,
-      imageUrl,
-      token,
-      permission,
-      role,
-      userId,
-    }
+    return { userId, permission, role }
+  },
+  getInfo: () => {
+    const email = auth.email || getCookie(COOKIES.EMAIL)
+    const name = auth.name || getCookie(COOKIES.NAME)
+    const imageUrl = auth.imageUrl || getCookie(COOKIES.IMAGE)
+    auth.email = email
+    auth.name = name
+    auth.imageUrl = imageUrl
+    return { email, name, imageUrl }
   },
 }

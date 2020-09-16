@@ -1,12 +1,11 @@
 import { notification } from 'antd'
 
-import { getCookie, COOKIES } from '../../utils/cookies'
 import { MENUS } from '../../config/menu'
 import { PUBLIC_URL } from '../../config/url'
 import { auth } from '../../utils/auth'
 
 const getConfig = (config) => {
-  const token = getCookie(COOKIES.TOKEN)
+  const token = auth.getToken()
   if (token) {
     config.headers = {
       Authorization: `Bearer ${token}`,

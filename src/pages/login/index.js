@@ -17,7 +17,7 @@ const Login = () => {
   const isLogout = query.get('isLogout')
   useEffect(() => {
     if (isExpired || isLogout) return
-    const { isAuthenticated } = auth.getAuth()
+    const isAuthenticated = auth.getIsAuthenticated()
     if (isAuthenticated) history.replace(from)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isExpired, isLogout])
