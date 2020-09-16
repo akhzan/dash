@@ -49,7 +49,7 @@ const FilterView = ({ activeKey, toggleCollapse }) => {
                 <Input />
               </Col>
             </Row>
-            <Row type="flex" justify="end">
+            <Row type="flex" justify="start" className="mt-4">
               <Col>
                 <Button>Reset</Button>
               </Col>
