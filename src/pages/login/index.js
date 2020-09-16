@@ -5,6 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import LoginView from './index.view'
 import { auth } from '../../utils/auth'
 import { MENUS } from '../../config/menu'
+import { authApi } from '../../api/auth'
 
 const Login = () => {
   const [loading, setLoading] = useState(false)
@@ -22,11 +23,12 @@ const Login = () => {
   }, [isExpired, isLogout])
   const onSuccess = (response) => {
     setLoading(true)
-    setTimeout(() => {
-      auth.authenticate(response)
+    authApi.login(response.tokenId, response.profileObj.email).then((res) => {
+      const { token } = res.data.data
+      auth.authenticate(response, token)
       setLoading(false)
       history.replace(from)
-    }, 1000)
+    })
   }
   const onFailure = () => {
     notification.error({
