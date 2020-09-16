@@ -26,4 +26,9 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/prop-types': 'off',
   },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
 }
