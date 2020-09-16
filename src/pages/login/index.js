@@ -1,15 +1,22 @@
 import React, { useState } from 'react'
 import { notification } from 'antd'
+import { useHistory, useLocation } from 'react-router-dom'
 
 import LoginView from './index.view'
+import { auth } from '../../utils/auth'
+import { MENUS } from '../../config/menu'
 
 const Login = () => {
   const [loading, setLoading] = useState(false)
+  const history = useHistory()
+  const location = useLocation()
+  const { from } = location.state || { from: { pathname: MENUS.HOME } }
   const onSuccess = (response) => {
     setLoading(true)
     setTimeout(() => {
-      console.log(response)
+      auth.authenticate(response)
       setLoading(false)
+      history.replace(from)
     }, 1000)
   }
   const onFailure = () => {
