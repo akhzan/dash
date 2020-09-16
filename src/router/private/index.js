@@ -5,7 +5,6 @@ import { auth } from '../../utils/auth'
 
 const PrivateRoute = ({ children, ...rest }) => {
   const { isAuthenticated } = auth.getAuth()
-  console.log(auth.getAuth(), isAuthenticated)
   return (
     <Route
       {...rest}
