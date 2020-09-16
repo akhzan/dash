@@ -18,7 +18,7 @@ const FilterView = ({ activeKey, toggleCollapse }) => {
       </Col>
       <Col>
         <Button type="link" onClick={toggleCollapse}>
-          More Filters
+          {activeKey ? 'Close' : 'More'} Filters
         </Button>
         <Tooltip placement="bottom" title="Download">
           <Button icon={<CloudDownloadOutlined />} shape="circle" />
@@ -42,7 +42,19 @@ const FilterView = ({ activeKey, toggleCollapse }) => {
         onChange={() => {}}
         ghost>
         <Collapse.Panel header={header} key="1" showArrow={false}>
-          <Card>Nice</Card>
+          <Card>
+            <Row>
+              <Col>
+                <label>Input 1</label>
+                <Input />
+              </Col>
+            </Row>
+            <Row type="flex" justify="end">
+              <Col>
+                <Button>Reset</Button>
+              </Col>
+            </Row>
+          </Card>
         </Collapse.Panel>
       </Collapse>
     </div>

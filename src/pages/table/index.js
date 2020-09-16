@@ -2,10 +2,12 @@ import React from 'react'
 
 import { apis } from '../../api'
 import Table from '../../layout/table'
+import { columns } from './columns'
 
 const TablePage = () => {
   const list = {
     api: apis.getHistories,
+    columns: columns,
     transform: (res) => {
       const { rates } = res
       const resData = Object.keys(rates)

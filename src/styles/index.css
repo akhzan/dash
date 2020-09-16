@@ -22,4 +22,7 @@
   object {
     vertical-align: initial;
   }
+  label {
+    font-size: 11px;
+  }
 }
