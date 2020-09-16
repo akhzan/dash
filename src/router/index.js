@@ -7,6 +7,7 @@ import Login from '../pages/login'
 import Home from '../pages/home'
 import Table from '../pages/table'
 import { MENUS } from '../config/menu'
+import NotFound from '../pages/notfound'
 
 const RouteConfig = (
   <Router basename={PUBLIC_URL}>
@@ -18,6 +19,7 @@ const RouteConfig = (
       <PrivateRoute exact path={MENUS.TABLE}>
         <Table />
       </PrivateRoute>
+      <Route component={NotFound} />
     </Switch>
   </Router>
 )
