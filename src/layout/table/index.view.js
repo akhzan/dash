@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'antd'
+import { Card, Table } from 'antd'
 
 import MainView from '../../layout/main/index.view'
 import Filter from './filter'
@@ -7,12 +7,15 @@ import Filter from './filter'
 const TableView = ({ data, loading, columns }) => (
   <MainView title="Table">
     <Filter />
-    <Table
-      loading={loading.list}
-      rowKey="date"
-      columns={columns}
-      dataSource={data.data}
-    />
+    <Card style={{ minHeight: 700 }}>
+      <Table
+        size="middle"
+        loading={loading.list}
+        rowKey="date"
+        columns={columns}
+        dataSource={data.data}
+      />
+    </Card>
   </MainView>
 )
 

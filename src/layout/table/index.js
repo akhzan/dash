@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { extendColumns } from './columns'
 import TableView from './index.view'
 
 const Table = ({ list }) => {
@@ -19,7 +20,13 @@ const Table = ({ list }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.data])
-  return <TableView data={data} loading={loading} columns={columns} />
+  return (
+    <TableView
+      data={data}
+      loading={loading}
+      columns={extendColumns({ columns })}
+    />
+  )
 }
 
 export default Table
