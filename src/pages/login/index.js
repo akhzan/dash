@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { notification } from 'antd'
 import { useHistory, useLocation } from 'react-router-dom'
 
@@ -11,6 +11,15 @@ const Login = () => {
   const history = useHistory()
   const location = useLocation()
   const { from } = location.state || { from: { pathname: MENUS.HOME } }
+  const query = new URLSearchParams(location.search)
+  const isExpired = query.get('isExpired')
+  const isLogout = query.get('isLogout')
+  useEffect(() => {
+    if (isExpired || isLogout) return
+    const { isAuthenticated } = auth.getAuth()
+    if (isAuthenticated) history.replace(from)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isExpired, isLogout])
   const onSuccess = (response) => {
     setLoading(true)
     setTimeout(() => {
