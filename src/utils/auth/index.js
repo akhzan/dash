@@ -25,9 +25,6 @@ export const auth = {
     setCookie(COOKIES.NAME, googleResponse.profileObj.name)
     setCookie(COOKIES.IMAGE, googleResponse.profileObj.imageUrl)
     setCookie(COOKIES.TOKEN, token)
-    setCookie(COOKIES.USERID, data.user_id)
-    setCookie(COOKIES.PERMISSION, data.privilege)
-    setCookie(COOKIES.ROLE, data.group)
   },
   signout: () => {
     auth.isAuthenticated = false
@@ -42,9 +39,6 @@ export const auth = {
     removeCookie(COOKIES.NAME)
     removeCookie(COOKIES.IMAGE)
     removeCookie(COOKIES.TOKEN)
-    removeCookie(COOKIES.USERID)
-    removeCookie(COOKIES.PERMISSION)
-    removeCookie(COOKIES.ROLE)
   },
   getAuth: () => {
     const isAuthenticated = auth.isAuthenticated || getCookie(COOKIES.TOKEN)
@@ -52,8 +46,32 @@ export const auth = {
     const name = auth.name || getCookie(COOKIES.NAME)
     const imageUrl = auth.imageUrl || getCookie(COOKIES.IMAGE)
     const token = auth.token || getCookie(COOKIES.TOKEN)
-    const permission = auth.permission || getCookie(COOKIES.PERMISSION)
-    const role = auth.role || getCookie(COOKIES.ROLE)
-    return { isAuthenticated, email, name, imageUrl, token, permission, role }
+    let permission = auth.permission
+    let role = auth.role
+    let userId = auth.userId
+    if (!(permission && role && userId)) {
+      const data = decode(token)
+      userId = data.user_id
+      permission = data.privilege
+      role = data.group
+    }
+    auth.isAuthenticated = isAuthenticated
+    auth.email = email
+    auth.name = name
+    auth.imageUrl = imageUrl
+    auth.token = token
+    auth.userId = userId
+    auth.permission = permission
+    auth.role = role
+    return {
+      isAuthenticated,
+      email,
+      name,
+      imageUrl,
+      token,
+      permission,
+      role,
+      userId,
+    }
   },
 }

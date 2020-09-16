@@ -15,7 +15,4 @@ export const COOKIES = {
   EMAIL: '_dashEmail',
   NAME: '_dashName',
   IMAGE: '_dashImage',
-  USERID: '_dashUserID',
-  PERMISSION: '_dashPermission',
-  ROLE: '_dashRole',
 }
