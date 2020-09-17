@@ -4,12 +4,14 @@ export const MENUS = {
   HOME: '/',
   LOGIN: '/login',
   TABLE: '/table',
+  CUSTOMERS: '/customers',
 }
 
 export const MENU_KEYS = {
   HOME: 'home',
   LOGIN: 'login',
   TABLE: 'table',
+  CUSTOMERS: 'customers',
 }
 
 export const getActiveMenu = (pathname = '') => {

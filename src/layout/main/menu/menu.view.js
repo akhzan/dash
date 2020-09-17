@@ -1,6 +1,10 @@
 import React from 'react'
 import { Menu } from 'antd'
-import { DashboardOutlined, TableOutlined } from '@ant-design/icons'
+import {
+  DashboardOutlined,
+  TableOutlined,
+  TeamOutlined,
+} from '@ant-design/icons'
 import { useLocation, NavLink } from 'react-router-dom'
 
 import { getActiveMenu, MENU_KEYS, MENUS } from '../../../config/menu'
@@ -15,6 +19,9 @@ const MenuView = () => {
       </Menu.Item>
       <Menu.Item key={MENU_KEYS.TABLE} icon={<TableOutlined />}>
         <NavLink to={MENUS.TABLE}>Table</NavLink>
+      </Menu.Item>
+      <Menu.Item key={MENU_KEYS.CUSTOMERS} icon={<TeamOutlined />}>
+        <NavLink to={MENUS.CUSTOMERS}>Customers</NavLink>
       </Menu.Item>
     </Menu>
   )

@@ -1,21 +1,19 @@
 import React from 'react'
-import { Card, Table } from 'antd'
+import { Table } from 'antd'
 
 import MainView from '../../layout/main/index.view'
 import Filter from './filter'
 
-const TableView = ({ data, loading, columns }) => (
-  <MainView title="Table">
+const TableView = ({ title, data, loading, columns }) => (
+  <MainView title={title || 'Table'}>
     <Filter />
-    <Card style={{ minHeight: 700 }}>
-      <Table
-        size="middle"
-        loading={loading.list}
-        rowKey="date"
-        columns={columns}
-        dataSource={data.data}
-      />
-    </Card>
+    <Table
+      size="middle"
+      loading={loading.list}
+      rowKey="idx"
+      columns={columns}
+      dataSource={data.data}
+    />
   </MainView>
 )
 

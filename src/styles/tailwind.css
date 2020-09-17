@@ -614,7 +614,9 @@ img,
 }
 
 label {
+  display: inline-block;
   font-size: 11px;
+  margin-bottom: 0.5em;
 }
 
 .container {

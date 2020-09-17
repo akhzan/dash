@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, Col, Collapse, Input, Row, Tooltip } from 'antd'
+import { Button, Col, Collapse, Input, Row, Tooltip } from 'antd'
 import {
   CloudDownloadOutlined,
   PlusCircleOutlined,
@@ -18,10 +18,14 @@ const FilterView = ({ activeKey, toggleCollapse }) => {
       </Col>
       <Col>
         <Button type="link" onClick={toggleCollapse}>
-          {activeKey ? 'Close' : 'More'} Filters
+          {activeKey ? 'Close' : 'Show'} Filters
         </Button>
         <Tooltip placement="bottom" title="Download">
-          <Button icon={<CloudDownloadOutlined />} shape="circle" />
+          <Button
+            className="ml-4"
+            icon={<CloudDownloadOutlined />}
+            shape="circle"
+          />
         </Tooltip>
         <Tooltip placement="bottomRight" title="Add new data">
           <Button
@@ -42,19 +46,38 @@ const FilterView = ({ activeKey, toggleCollapse }) => {
         onChange={() => {}}
         ghost>
         <Collapse.Panel header={header} key="1" showArrow={false}>
-          <Card>
-            <Row>
-              <Col>
+          <div className="border-t border-b border-gray-300 py-4">
+            <Row gutter={[16, 16]}>
+              <Col className="w-1/5">
                 <label>Input 1</label>
-                <Input />
+                <Input placeholder="Input 1" />
+              </Col>
+              <Col className="w-1/5">
+                <label>Input 1</label>
+                <Input placeholder="Input 1" />
+              </Col>
+              <Col className="w-1/5">
+                <label>Input 1</label>
+                <Input placeholder="Input 1" />
+              </Col>
+              <Col className="w-1/5">
+                <label>Input 1</label>
+                <Input placeholder="Input 1" />
+              </Col>
+              <Col className="w-1/5">
+                <label>Input 1</label>
+                <Input placeholder="Input 1" />
               </Col>
             </Row>
-            <Row type="flex" justify="start" className="mt-4">
-              <Col>
-                <Button>Reset</Button>
-              </Col>
-            </Row>
-          </Card>
+            <div>
+              <Button size="small" type="primary">
+                Filter
+              </Button>
+              <Button className="ml-2" size="small">
+                Reset
+              </Button>
+            </div>
+          </div>
         </Collapse.Panel>
       </Collapse>
     </div>
