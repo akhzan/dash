@@ -6,11 +6,20 @@ import {
   SearchOutlined,
 } from '@ant-design/icons'
 
-const FilterView = ({ activeKey, toggleCollapse }) => {
+const FilterView = ({
+  activeKey,
+  toggleCollapse,
+  changeLocationSearch,
+  filter,
+  changeFilterValue,
+}) => {
   const header = (
     <Row type="flex" justify="space-between" align="middle">
       <Col className="w-1/3">
         <Input
+          value={filter.search}
+          onChange={(e) => changeFilterValue('search', e.target.value)}
+          onPressEnter={changeLocationSearch}
           bordered={false}
           placeholder="Search..."
           prefix={<SearchOutlined className="mr-2" />}

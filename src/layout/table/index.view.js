@@ -4,9 +4,21 @@ import { Table } from 'antd'
 import MainView from '../../layout/main/index.view'
 import Filter from './filter'
 
-const TableView = ({ title, data, loading, columns }) => (
+const TableView = ({
+  title,
+  data,
+  loading,
+  columns,
+  changeLocationSearch,
+  filter,
+  changeFilterValue,
+}) => (
   <MainView title={title || 'Table'}>
-    <Filter />
+    <Filter
+      changeLocationSearch={changeLocationSearch}
+      filter={filter}
+      changeFilterValue={changeFilterValue}
+    />
     <Table
       size="middle"
       loading={loading.list}
