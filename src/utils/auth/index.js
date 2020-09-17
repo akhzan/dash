@@ -3,7 +3,6 @@ import decode from 'jwt-decode'
 import { COOKIES, getCookie, removeCookie, setCookie } from '../cookies'
 
 export const auth = {
-  isAuthenticated: false,
   email: '',
   name: '',
   imageUrl: '',
@@ -13,7 +12,6 @@ export const auth = {
   role: '',
   authenticate: (googleResponse, token) => {
     const data = decode(token)
-    auth.isAuthenticated = true
     auth.email = googleResponse.profileObj.email
     auth.name = googleResponse.profileObj.name
     auth.imageUrl = googleResponse.profileObj.imageUrl
@@ -27,7 +25,6 @@ export const auth = {
     setCookie(COOKIES.TOKEN, token)
   },
   signout: () => {
-    auth.isAuthenticated = false
     auth.email = ''
     auth.name = ''
     auth.imageUrl = ''
@@ -40,12 +37,7 @@ export const auth = {
     removeCookie(COOKIES.IMAGE)
     removeCookie(COOKIES.TOKEN)
   },
-  getIsAuthenticated: () => {
-    const isAuthenticated = auth.isAuthenticated || !!getCookie(COOKIES.TOKEN)
-    auth.isAuthenticated = isAuthenticated
-    if (!isAuthenticated) auth.signout()
-    return isAuthenticated
-  },
+  getIsAuthenticated: () => !!auth.getToken(),
   getToken: () => {
     const token = auth.token || getCookie(COOKIES.TOKEN)
     auth.token = token
