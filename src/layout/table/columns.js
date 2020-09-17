@@ -7,7 +7,7 @@ import {
   HistoryOutlined,
 } from '@ant-design/icons'
 
-export const extendColumns = ({ columns }) => [
+export const extendColumns = ({ columns, extendActionColumn }) => [
   {
     title: 'No',
     dataIndex: 'idx',
@@ -21,7 +21,7 @@ export const extendColumns = ({ columns }) => [
     key: 'action',
     width: 180,
     // eslint-disable-next-line react/display-name
-    render: () => (
+    render: (id, record) => (
       <div className="flex justify-end">
         <Tooltip placement="bottom" title="View">
           <Button shape="circle" icon={<EyeOutlined />} />
@@ -35,6 +35,7 @@ export const extendColumns = ({ columns }) => [
         <Tooltip placement="bottom" title="Delete">
           <Button shape="circle" className="ml-2" icon={<DeleteOutlined />} />
         </Tooltip>
+        {extendActionColumn ? extendActionColumn(record) : null}
       </div>
     ),
   },

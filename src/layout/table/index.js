@@ -5,7 +5,7 @@ import TableView from './index.view'
 const Table = ({ title, list }) => {
   const [data, setData] = useState({})
   const [loading, setLoading] = useState({})
-  const { api = () => {}, transform, columns = [] } = list
+  const { api = () => {}, transform, columns = [], extendActionColumn } = list
   const getData = async () => {
     setLoading({ ...loading, list: true })
     const resData = await api()
@@ -32,7 +32,7 @@ const Table = ({ title, list }) => {
       title={title}
       data={data}
       loading={loading}
-      columns={extendColumns({ columns })}
+      columns={extendColumns({ columns, extendActionColumn })}
     />
   )
 }

@@ -13,6 +13,7 @@ const TableView = ({ title, data, loading, columns }) => (
       rowKey="idx"
       columns={columns}
       dataSource={data.data}
+      scroll={{ x: true }}
     />
   </MainView>
 )
