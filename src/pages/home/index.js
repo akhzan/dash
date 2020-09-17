@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import HomeView from './index.view'
-import { apis } from '../../api'
+import { mockApi } from '../../api/mock'
 
 const Home = () => {
   const [latest, setLatest] = useState({})
   const [histories, setHistories] = useState([])
   useEffect(() => {
     if (!latest.IDR) {
-      Promise.all([apis.getLatest(), apis.getHistories()]).then((res) => {
+      Promise.all([mockApi.getLatest(), mockApi.getHistories()]).then((res) => {
         const { rates: ratesLatest } = res[0]
         const { rates: ratesHistories } = res[1]
         setLatest({

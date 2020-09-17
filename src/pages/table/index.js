@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { apis } from '../../api'
+import { mockApi } from '../../api/mock'
 import Table from '../../layout/table'
 import { columns } from './columns'
 
 const TablePage = () => {
   const list = {
-    api: apis.getHistories,
+    api: mockApi.getHistories,
     columns: columns,
     transform: (res) => {
       const { rates } = res

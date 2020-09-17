@@ -43,11 +43,13 @@ export const auth = {
   getIsAuthenticated: () => {
     const isAuthenticated = auth.isAuthenticated || !!getCookie(COOKIES.TOKEN)
     auth.isAuthenticated = isAuthenticated
+    if (!isAuthenticated) auth.signout()
     return isAuthenticated
   },
   getToken: () => {
     const token = auth.token || getCookie(COOKIES.TOKEN)
     auth.token = token
+    if (!token) auth.signout()
     return token
   },
   getRole: () => {
@@ -56,10 +58,10 @@ export const auth = {
     let userId = auth.userId
     if (!role) {
       const token = auth.token || getCookie(COOKIES.TOKEN)
-      const data = decode(token)
-      userId = data.user_id
-      permission = data.privilege
-      role = data.group
+      const data = token ? decode(token) : {}
+      userId = data.user_id || ''
+      permission = data.privilege || ''
+      role = data.group || ''
     }
     auth.userId = userId
     auth.permission = permission
