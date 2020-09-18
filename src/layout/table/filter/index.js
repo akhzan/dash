@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import FilterView from './index.view'
 
-const Filter = ({ changeLocationSearch, filter, changeFilterValue }) => {
+const Filter = ({
+  changeLocationSearch,
+  filter,
+  changeFilterValue,
+  showSearch,
+  placeholderSearch,
+}) => {
   const [filterCollapsed, setFilterCollapsed] = useState(false)
   return (
     <FilterView
@@ -10,6 +16,8 @@ const Filter = ({ changeLocationSearch, filter, changeFilterValue }) => {
       changeLocationSearch={changeLocationSearch}
       filter={filter}
       changeFilterValue={changeFilterValue}
+      showSearch={showSearch}
+      placeholderSearch={placeholderSearch}
     />
   )
 }

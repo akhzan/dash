@@ -5,7 +5,7 @@ import { extendColumns } from './columns'
 import TableView from './index.view'
 import { PUBLIC_URL } from '../../config/url'
 
-const Table = ({ title, list }) => {
+const Table = ({ title, list, search }) => {
   // STATES
   const [data, setData] = useState({})
   const [loading, setLoading] = useState({})
@@ -24,6 +24,7 @@ const Table = ({ title, list }) => {
 
   // PROPS
   const { api = () => {}, transform, columns = [], extendActionColumn } = list
+  const { showSearch, placeholder: placeholderSearch } = search || {}
 
   // METHODS
   const getData = async (params) => {
@@ -50,8 +51,8 @@ const Table = ({ title, list }) => {
     })
     history.push(`${pathname}?${new URLSearchParams(filterMapped).toString()}`)
   }
-  const changeFilterValue = (field, value) => {
-    setFilter({ ...filter, [field]: value })
+  const changeFilterValue = (newFilter) => {
+    setFilter({ ...filter, ...newFilter })
   }
 
   // EFFECTS
@@ -68,6 +69,8 @@ const Table = ({ title, list }) => {
       changeLocationSearch={changeLocationSearch}
       filter={filter}
       changeFilterValue={changeFilterValue}
+      showSearch={showSearch}
+      placeholderSearch={placeholderSearch}
     />
   )
 }

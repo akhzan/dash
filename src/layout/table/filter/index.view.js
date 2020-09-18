@@ -12,18 +12,22 @@ const FilterView = ({
   changeLocationSearch,
   filter,
   changeFilterValue,
+  showSearch,
+  placeholderSearch,
 }) => {
   const header = (
     <Row type="flex" justify="space-between" align="middle">
       <Col className="w-1/3">
-        <Input
-          value={filter.search}
-          onChange={(e) => changeFilterValue('search', e.target.value)}
-          onPressEnter={changeLocationSearch}
-          bordered={false}
-          placeholder="Search..."
-          prefix={<SearchOutlined className="mr-2" />}
-        />
+        {showSearch ? (
+          <Input
+            value={filter.search}
+            onChange={(e) => changeFilterValue({ search: e.target.value })}
+            onPressEnter={changeLocationSearch}
+            bordered={false}
+            placeholder={placeholderSearch || 'Search...'}
+            prefix={<SearchOutlined className="mr-2" />}
+          />
+        ) : null}
       </Col>
       <Col>
         <Button type="link" onClick={toggleCollapse}>

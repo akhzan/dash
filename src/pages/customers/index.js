@@ -23,7 +23,11 @@ const Customers = () => {
       )
     },
   }
-  return <Table title="Customers" list={list} />
+  const search = {
+    showSearch: true,
+    placeholder: 'Search by Customer ID or Phone Number',
+  }
+  return <Table title="Customers" list={list} search={search} />
 }
 
 export default Customers

@@ -12,12 +12,16 @@ const TableView = ({
   changeLocationSearch,
   filter,
   changeFilterValue,
+  showSearch,
+  placeholderSearch,
 }) => (
   <MainView title={title || 'Table'}>
     <Filter
       changeLocationSearch={changeLocationSearch}
       filter={filter}
       changeFilterValue={changeFilterValue}
+      showSearch={showSearch}
+      placeholderSearch={placeholderSearch}
     />
     <Table
       size="middle"
