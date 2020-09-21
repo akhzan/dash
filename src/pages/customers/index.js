@@ -15,7 +15,6 @@ const Customers = () => {
       return (
         <Tooltip placement="bottom" title={isBlocked ? 'Unblock' : 'Block'}>
           <Button
-            className="ml-2"
             shape="circle"
             icon={isBlocked ? <CheckOutlined /> : <StopOutlined />}
           />
@@ -29,6 +28,7 @@ const Customers = () => {
   }
   const filters = [
     { type: FILTER_FIELD_TYPES.TEXT, label: 'Search', fieldName: 'search' },
+    { type: FILTER_FIELD_TYPES.DATE, label: 'Date', fieldName: 'date' },
   ]
   return (
     <Table title="Customers" list={list} search={search} filters={filters} />

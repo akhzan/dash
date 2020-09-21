@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Col, Collapse, Input, Row, Tooltip } from 'antd'
+import { Button, Col, Collapse, Input, Row, Space, Tooltip } from 'antd'
 import {
   CloudDownloadOutlined,
   PlusCircleOutlined,
@@ -80,7 +80,7 @@ const FilterView = ({
                   </Col>
                 ))}
               </Row>
-              <div>
+              <Space>
                 <Button
                   size="small"
                   type="primary"
@@ -89,13 +89,12 @@ const FilterView = ({
                   Filter
                 </Button>
                 <Button
-                  className="ml-2"
                   size="small"
                   disabled={loading}
                   onClick={() => changeLocationSearch(true)}>
                   Reset
                 </Button>
-              </div>
+              </Space>
             </div>
           ) : null}
         </Collapse.Panel>

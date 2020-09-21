@@ -1,7 +1,7 @@
 import { METHODS, apiCall } from './config'
 
-const subUrl = 'v1/backend/customer'
+const url = 'v1/backend/customer'
 
 export const customersApi = {
-  get: ({ search }) => apiCall(METHODS.GET, subUrl, '', { search_by: search }),
+  get: ({ search }) => apiCall(METHODS.GET, url, { search_by: search }),
 }

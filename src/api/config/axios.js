@@ -12,7 +12,6 @@ instance.interceptors.response.use((response) => response, errorInterceptor)
 
 export const call = (
   method,
-  url,
   subUrl = '',
   data = {},
   additionalConfig = {},
@@ -21,7 +20,7 @@ export const call = (
   const config = {
     baseURL: API_URL,
     method,
-    url: `${url}${subUrl}`,
+    url: subUrl,
     headers: {
       'Content-Type': 'application/json',
       ...additionalHeaders,
