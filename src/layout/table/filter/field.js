@@ -6,12 +6,16 @@ export const filterFieldTypes = {
   SELECT: 'SELECT',
 }
 
-const FilterFields = ({ type, value, onChange, label, ...args }) => {
+const FilterField = ({ type, fieldName, value, onChange, label, ...args }) => {
   const types = {
     TEXT: (
       <div>
         <label>{label}</label>
-        <Input onChange={onChange} value={value} {...args} />
+        <Input
+          onChange={(e) => onChange({ [fieldName]: e.target.value })}
+          value={value}
+          {...args}
+        />
       </div>
     ),
   }
@@ -19,4 +23,4 @@ const FilterFields = ({ type, value, onChange, label, ...args }) => {
   return renderFilter
 }
 
-export default FilterFields
+export default FilterField

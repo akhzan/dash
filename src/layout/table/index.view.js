@@ -14,14 +14,17 @@ const TableView = ({
   changeFilterValue,
   showSearch,
   placeholderSearch,
+  filterFields,
 }) => (
   <MainView title={title || 'Table'}>
     <Filter
+      loading={loading.list}
       changeLocationSearch={changeLocationSearch}
       filter={filter}
       changeFilterValue={changeFilterValue}
       showSearch={showSearch}
       placeholderSearch={placeholderSearch}
+      filterFields={filterFields}
     />
     <Table
       size="middle"

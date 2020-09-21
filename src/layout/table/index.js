@@ -4,8 +4,9 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { extendColumns } from './columns'
 import TableView from './index.view'
 import { PUBLIC_URL } from '../../config/url'
+import { filterFieldTypes } from './filter/field'
 
-const Table = ({ title, list, search }) => {
+const Table = ({ title, list, search, filters }) => {
   // STATES
   const [data, setData] = useState({})
   const [loading, setLoading] = useState({})
@@ -24,7 +25,7 @@ const Table = ({ title, list, search }) => {
 
   // PROPS
   const { api = () => {}, transform, columns = [], extendActionColumn } = list
-  const { showSearch, placeholder: placeholderSearch } = search || {}
+  const { showSearch, placeholder: placeholderSearch } = search
 
   // METHODS
   const getData = async (params) => {
@@ -43,8 +44,10 @@ const Table = ({ title, list, search }) => {
     setFilter(params)
     setLoading({ ...loading, list: false })
   }
-  const changeLocationSearch = () => {
-    const filterMapped = { ...filter }
+  const changeLocationSearch = (isReset) => {
+    const filterMapped = isReset
+      ? { ...(filter.search && { search: filter.search }) }
+      : { ...filter }
     Object.keys(filter).map((key) => {
       !filterMapped[key] && delete filterMapped[key]
       return key
@@ -71,8 +74,16 @@ const Table = ({ title, list, search }) => {
       changeFilterValue={changeFilterValue}
       showSearch={showSearch}
       placeholderSearch={placeholderSearch}
+      filterFields={filters}
     />
   )
 }
 
+Table.defaultProps = {
+  search: {},
+  filters: [],
+}
+
 export default Table
+
+export const FILTER_FIELD_TYPES = filterFieldTypes

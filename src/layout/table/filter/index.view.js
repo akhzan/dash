@@ -6,6 +6,8 @@ import {
   SearchOutlined,
 } from '@ant-design/icons'
 
+import FilterField from './field'
+
 const FilterView = ({
   activeKey,
   toggleCollapse,
@@ -14,6 +16,8 @@ const FilterView = ({
   changeFilterValue,
   showSearch,
   placeholderSearch,
+  loading,
+  filterFields,
 }) => {
   const header = (
     <Row type="flex" justify="space-between" align="middle">
@@ -22,7 +26,7 @@ const FilterView = ({
           <Input
             value={filter.search}
             onChange={(e) => changeFilterValue({ search: e.target.value })}
-            onPressEnter={changeLocationSearch}
+            onPressEnter={() => changeLocationSearch()}
             bordered={false}
             placeholder={placeholderSearch || 'Search...'}
             prefix={<SearchOutlined className="mr-2" />}
@@ -30,9 +34,11 @@ const FilterView = ({
         ) : null}
       </Col>
       <Col>
-        <Button type="link" onClick={toggleCollapse}>
-          {activeKey ? 'Close' : 'Show'} Filters
-        </Button>
+        {filterFields.length ? (
+          <Button type="link" onClick={toggleCollapse}>
+            {activeKey ? 'Close' : 'Show'} Filters
+          </Button>
+        ) : null}
         <Tooltip placement="bottom" title="Download">
           <Button
             className="ml-4"
@@ -59,38 +65,39 @@ const FilterView = ({
         onChange={() => {}}
         ghost>
         <Collapse.Panel header={header} key="1" showArrow={false}>
-          <div className="border-t border-b border-gray-300 py-4">
-            <Row gutter={[16, 16]}>
-              <Col className="w-1/5">
-                <label>Input 1</label>
-                <Input placeholder="Input 1" />
-              </Col>
-              <Col className="w-1/5">
-                <label>Input 1</label>
-                <Input placeholder="Input 1" />
-              </Col>
-              <Col className="w-1/5">
-                <label>Input 1</label>
-                <Input placeholder="Input 1" />
-              </Col>
-              <Col className="w-1/5">
-                <label>Input 1</label>
-                <Input placeholder="Input 1" />
-              </Col>
-              <Col className="w-1/5">
-                <label>Input 1</label>
-                <Input placeholder="Input 1" />
-              </Col>
-            </Row>
-            <div>
-              <Button size="small" type="primary">
-                Filter
-              </Button>
-              <Button className="ml-2" size="small">
-                Reset
-              </Button>
+          {filterFields.length ? (
+            <div className="border-t border-b border-gray-300 py-4">
+              <Row gutter={[16, 16]}>
+                {filterFields.map((field, ind) => (
+                  <Col key={ind} className="w-1/5">
+                    <FilterField
+                      type={field.type}
+                      fieldName={field.fieldName}
+                      value={filter.search}
+                      onChange={changeFilterValue}
+                      label={field.label}
+                    />
+                  </Col>
+                ))}
+              </Row>
+              <div>
+                <Button
+                  size="small"
+                  type="primary"
+                  loading={loading}
+                  onClick={() => changeLocationSearch()}>
+                  Filter
+                </Button>
+                <Button
+                  className="ml-2"
+                  size="small"
+                  disabled={loading}
+                  onClick={() => changeLocationSearch(true)}>
+                  Reset
+                </Button>
+              </div>
             </div>
-          </div>
+          ) : null}
         </Collapse.Panel>
       </Collapse>
     </div>
