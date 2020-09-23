@@ -23,12 +23,15 @@ const Login = () => {
   }, [isExpired, isLogout])
   const onSuccess = (response) => {
     setLoading(true)
-    authApi.login(response.tokenId, response.profileObj.email).then((res) => {
-      const { token } = res.data.data
-      auth.authenticate(response, token)
-      setLoading(false)
-      history.replace(from)
-    })
+    authApi
+      .login(response.tokenId, response.profileObj.email)
+      .then((res) => {
+        const { token } = res.data.data
+        auth.authenticate(response, token)
+        setLoading(false)
+        history.replace(from)
+      })
+      .catch(() => setLoading(false))
   }
   const onFailure = () => {
     notification.error({

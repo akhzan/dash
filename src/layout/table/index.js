@@ -48,6 +48,7 @@ const Table = ({ title, list, search, filters }) => {
     const filterMapped = isReset
       ? { ...(filter.search && { search: filter.search }) }
       : { ...filter }
+    if (isReset) setFilter(filterMapped)
     Object.keys(filter).map((key) => {
       !filterMapped[key] && delete filterMapped[key]
       return key

@@ -1,7 +1,8 @@
 import React from 'react'
-import { Input } from 'antd'
-
+import { Input, Select } from 'antd'
+import dayjs from 'dayjs'
 import Datepicker from '../../../components/datepicker'
+import { DATE_FORMAT_FILTER } from '../../../config/constants/datetime'
 
 export const filterFieldTypes = {
   TEXT: 'TEXT',
@@ -10,7 +11,35 @@ export const filterFieldTypes = {
   RANGE: 'RANGE',
 }
 
-const FilterField = ({ type, fieldName, value, onChange, label, ...args }) => {
+const parseDate = (value) =>
+  value && dayjs(value, DATE_FORMAT_FILTER).isValid
+    ? dayjs(value, DATE_FORMAT_FILTER)
+    : null
+
+const FilterField = ({
+  type,
+  fieldName,
+  filterValue,
+  onChange,
+  label,
+  source,
+  sourceLabel,
+  sourceValue,
+  ...args
+}) => {
+  let value = null
+  if (type === filterFieldTypes.RANGE) {
+    let startDate = filterValue[fieldName[0]] || null
+    let endDate = filterValue[fieldName[1]] || null
+    startDate = parseDate(startDate)
+    endDate = parseDate(endDate)
+    value = startDate && endDate ? [startDate, endDate] : null
+  } else if (type === filterFieldTypes.DATE) {
+    value = filterValue[fieldName]
+    value = parseDate(value)
+  } else {
+    value = filterValue[fieldName]
+  }
   const types = {
     TEXT: (
       <Input
@@ -19,7 +48,52 @@ const FilterField = ({ type, fieldName, value, onChange, label, ...args }) => {
         {...args}
       />
     ),
-    DATE: <Datepicker onChange={(val) => console.log(val)} />,
+    DATE: (
+      <div>
+        <Datepicker
+          className="w-full"
+          value={value}
+          onChange={(val) =>
+            onChange({
+              [fieldName]: val ? val.format(DATE_FORMAT_FILTER) : null,
+            })
+          }
+          format={DATE_FORMAT_FILTER}
+        />
+      </div>
+    ),
+    RANGE: (
+      <div>
+        <Datepicker.RangePicker
+          className="w-full"
+          value={value}
+          onChange={(val) =>
+            onChange({
+              [fieldName[0]]: val ? val[0].format(DATE_FORMAT_FILTER) : null,
+              [fieldName[1]]: val ? val[1].format(DATE_FORMAT_FILTER) : null,
+            })
+          }
+          format={DATE_FORMAT_FILTER}
+        />
+      </div>
+    ),
+    SELECT: (
+      <div>
+        <Select
+          className="w-full"
+          {...args}
+          value={value}
+          onChange={(val) => onChange({ [fieldName]: val })}>
+          {(source || []).map((s) => (
+            <Select.Option
+              key={s[sourceValue || 'code']}
+              value={s[sourceValue || 'code']}>
+              {s[sourceLabel || 'name']}
+            </Select.Option>
+          ))}
+        </Select>
+      </div>
+    ),
   }
   const renderFilter = types[type] || null
   return (

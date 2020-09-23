@@ -27,8 +27,27 @@ const Customers = () => {
     placeholder: 'Search by Customer ID or Phone Number',
   }
   const filters = [
-    { type: FILTER_FIELD_TYPES.TEXT, label: 'Search', fieldName: 'search' },
+    {
+      type: FILTER_FIELD_TYPES.TEXT,
+      label: 'Search',
+      fieldName: 'search',
+      placeholder: 'Search',
+    },
     { type: FILTER_FIELD_TYPES.DATE, label: 'Date', fieldName: 'date' },
+    {
+      type: FILTER_FIELD_TYPES.SELECT,
+      label: 'Select',
+      fieldName: 'select',
+      placeholder: 'Select',
+      source: [{ code: '1', name: 'Option 1' }],
+      sourceLabel: 'name',
+      sourceValue: 'code',
+    },
+    {
+      type: FILTER_FIELD_TYPES.RANGE,
+      label: 'Range',
+      fieldName: ['startDate', 'endDate'],
+    },
   ]
   return (
     <Table title="Customers" list={list} search={search} filters={filters} />

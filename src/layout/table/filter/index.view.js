@@ -71,9 +71,10 @@ const FilterView = ({
                 {filterFields.map((field, ind) => (
                   <Col key={ind} className="w-1/5">
                     <FilterField
+                      {...field}
                       type={field.type}
                       fieldName={field.fieldName}
-                      value={filter.search}
+                      filterValue={filter}
                       onChange={changeFilterValue}
                       label={field.label}
                     />
