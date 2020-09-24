@@ -18,7 +18,6 @@ const TableView = ({
   filterFields,
   useDefaultPagination,
   changePage,
-  resetFilter,
 }) => (
   <MainView title={title || 'Table'}>
     <Filter
@@ -29,7 +28,6 @@ const TableView = ({
       showSearch={showSearch}
       placeholderSearch={placeholderSearch}
       filterFields={filterFields}
-      resetFilter={resetFilter}
     />
     <Table
       size="middle"

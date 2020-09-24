@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
+import { debounce } from 'lodash'
 import FilterView from './index.view'
 
 const Filter = ({
@@ -9,21 +10,33 @@ const Filter = ({
   placeholderSearch,
   loading,
   filterFields,
-  resetFilter,
 }) => {
   const [filterCollapsed, setFilterCollapsed] = useState(false)
+  const changeFilter = (newFilterValues) => {
+    changeFilterValue(newFilterValues)
+    changeLocationSearch(newFilterValues)
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceChangeLocationSearch = useCallback(
+    debounce(changeLocationSearch, 500),
+    [],
+  )
+  const changeFilterDebounce = (newFilterValues) => {
+    changeFilterValue(newFilterValues)
+    debounceChangeLocationSearch({ ...filter, ...newFilterValues })
+  }
   return (
     <FilterView
       activeKey={filterCollapsed}
       toggleCollapse={() => setFilterCollapsed(!filterCollapsed)}
       changeLocationSearch={changeLocationSearch}
       filter={filter}
-      changeFilterValue={changeFilterValue}
+      changeFilterValue={changeFilter}
+      changeFilterValueDebounce={changeFilterDebounce}
       showSearch={showSearch}
       placeholderSearch={placeholderSearch}
       loading={loading}
       filterFields={filterFields}
-      resetFilter={resetFilter}
     />
   )
 }

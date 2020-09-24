@@ -23,6 +23,7 @@ const FilterField = ({
   fieldName,
   filterValue,
   onChange,
+  onChangeDebounce,
   label,
   source,
   sourceLabel,
@@ -46,14 +47,15 @@ const FilterField = ({
   const types = {
     TEXT: (
       <Input
-        onChange={(e) => onChange({ [fieldName]: e.target.value })}
-        value={value}
         {...args}
+        onChange={(e) => onChangeDebounce({ [fieldName]: e.target.value })}
+        value={value}
       />
     ),
     DATE: (
       <div>
         <Datepicker
+          {...args}
           className="w-full"
           value={value}
           onChange={(val) =>
@@ -68,6 +70,7 @@ const FilterField = ({
     RANGE: (
       <div>
         <Datepicker.RangePicker
+          {...args}
           className="w-full"
           value={value}
           onChange={(val) =>
@@ -83,8 +86,8 @@ const FilterField = ({
     SELECT: (
       <div>
         <Select
-          className="w-full"
           {...args}
+          className="w-full"
           value={value || defaultValue}
           onChange={(val) => onChange({ [fieldName]: val })}>
           {(source || []).map((s) => (

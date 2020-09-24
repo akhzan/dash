@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Col, Collapse, Input, Row, Space, Tooltip } from 'antd'
+import { Button, Col, Collapse, Input, Row, Tooltip } from 'antd'
 import {
   CloudDownloadOutlined,
   PlusCircleOutlined,
@@ -14,11 +14,11 @@ const FilterView = ({
   changeLocationSearch,
   filter,
   changeFilterValue,
+  changeFilterValueDebounce,
   showSearch,
   placeholderSearch,
   loading,
   filterFields,
-  resetFilter,
 }) => {
   const header = (
     <Row type="flex" justify="space-between" align="middle">
@@ -26,8 +26,9 @@ const FilterView = ({
         {showSearch ? (
           <Input
             value={filter.search}
-            onChange={(e) => changeFilterValue({ search: e.target.value })}
-            onPressEnter={() => changeLocationSearch()}
+            onChange={(e) =>
+              changeFilterValueDebounce({ search: e.target.value })
+            }
             bordered={false}
             placeholder={placeholderSearch || 'Search...'}
             prefix={<SearchOutlined className="mr-2" />}
@@ -35,9 +36,17 @@ const FilterView = ({
         ) : null}
       </Col>
       <Col>
+        {filterFields.length && activeKey ? (
+          <Button
+            disabled={loading}
+            type="link"
+            onClick={() => changeLocationSearch({}, true)}>
+            Reset Filter
+          </Button>
+        ) : null}
         {filterFields.length ? (
           <Button type="link" onClick={toggleCollapse}>
-            {activeKey ? 'Close' : 'Show'} Filters
+            {activeKey ? 'Close' : 'Show'} Filter
           </Button>
         ) : null}
         <Tooltip placement="bottom" title="Download">
@@ -67,7 +76,7 @@ const FilterView = ({
         ghost>
         <Collapse.Panel header={header} key="1" showArrow={false}>
           {filterFields.length ? (
-            <div className="border-t border-b border-gray-300 py-4">
+            <div className="border-t border-b border-gray-300 pt-4 pb-1">
               <Row gutter={[16, 16]}>
                 {filterFields.map((field, ind) => (
                   <Col key={ind} className="w-1/5">
@@ -77,23 +86,13 @@ const FilterView = ({
                       fieldName={field.fieldName}
                       filterValue={filter}
                       onChange={changeFilterValue}
+                      onChangeDebounce={changeFilterValueDebounce}
                       label={field.label}
+                      disabled={loading}
                     />
                   </Col>
                 ))}
               </Row>
-              <Space>
-                <Button
-                  size="small"
-                  type="primary"
-                  loading={loading}
-                  onClick={() => changeLocationSearch()}>
-                  Filter
-                </Button>
-                <Button size="small" disabled={loading} onClick={resetFilter}>
-                  Reset
-                </Button>
-              </Space>
             </div>
           ) : null}
         </Collapse.Panel>

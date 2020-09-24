@@ -45,33 +45,29 @@ const Table = ({ title, list, search, filters, pagination }) => {
     setFilter(params)
     setLoading({ ...loading, list: false })
   }
-  const changeLocationSearch = (isReset) => {
+  const changeUrl = (filterParam) => {
+    history.push(`${pathname}?${new URLSearchParams(filterParam).toString()}`)
+  }
+  const changeLocationSearch = (newFilter, isReset) => {
     const filterMapped = isReset
-      ? { ...(filter.search && { search: filter.search }) }
-      : { ...filter }
-    if (isReset) setFilter(filterMapped)
-    delete filterMapped.page
-    Object.keys(filter).map((key) => {
+      ? { search: filter.search }
+      : { ...filter, ...newFilter }
+    // Remove empty properties of filter
+    Object.keys(filterMapped).map((key) => {
       !filterMapped[key] && delete filterMapped[key]
       return key
     })
-    history.push(`${pathname}?${new URLSearchParams(filterMapped).toString()}`)
+    delete filterMapped.page
+    changeUrl(filterMapped)
   }
   const changeFilterValue = (newFilter) => {
     setFilter({ ...filter, ...newFilter })
-  }
-  const resetFilter = () => {
-    const newFilter = {
-      ...(filter.search && { search: filter.search }),
-      ...(filter.page && { page: filter.page }),
-    }
-    setFilter(newFilter)
   }
   const changePage = (page) => {
     const newFilter = { ...filter, page }
     if (page === 1) delete newFilter.page
     setFilter(newFilter)
-    history.push(`${pathname}?${new URLSearchParams(newFilter).toString()}`)
+    changeUrl(newFilter)
   }
 
   // EFFECTS
@@ -97,7 +93,6 @@ const Table = ({ title, list, search, filters, pagination }) => {
       filterFields={filters}
       useDefaultPagination={useDefaultPagination}
       changePage={changePage}
-      resetFilter={resetFilter}
     />
   )
 }
