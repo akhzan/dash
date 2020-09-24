@@ -6,7 +6,7 @@ import TableView from './index.view'
 import { PUBLIC_URL } from '../../config/url'
 import { filterFieldTypes } from './filter/field'
 
-const Table = ({ title, list, search, filters }) => {
+const Table = ({ title, list, search, filters, pagination }) => {
   // STATES
   const [data, setData] = useState({})
   const [loading, setLoading] = useState({})
@@ -26,6 +26,7 @@ const Table = ({ title, list, search, filters }) => {
   // PROPS
   const { api = () => {}, transform, columns = [], extendActionColumn } = list
   const { showSearch, placeholder: placeholderSearch } = search
+  const { useDefault: useDefaultPagination = true } = pagination
 
   // METHODS
   const getData = async (params) => {
@@ -49,6 +50,7 @@ const Table = ({ title, list, search, filters }) => {
       ? { ...(filter.search && { search: filter.search }) }
       : { ...filter }
     if (isReset) setFilter(filterMapped)
+    delete filterMapped.page
     Object.keys(filter).map((key) => {
       !filterMapped[key] && delete filterMapped[key]
       return key
@@ -57,6 +59,19 @@ const Table = ({ title, list, search, filters }) => {
   }
   const changeFilterValue = (newFilter) => {
     setFilter({ ...filter, ...newFilter })
+  }
+  const resetFilter = () => {
+    const newFilter = {
+      ...(filter.search && { search: filter.search }),
+      ...(filter.page && { page: filter.page }),
+    }
+    setFilter(newFilter)
+  }
+  const changePage = (page) => {
+    const newFilter = { ...filter, page }
+    if (page === 1) delete newFilter.page
+    setFilter(newFilter)
+    history.push(`${pathname}?${new URLSearchParams(newFilter).toString()}`)
   }
 
   // EFFECTS
@@ -69,13 +84,20 @@ const Table = ({ title, list, search, filters }) => {
       title={title}
       data={data}
       loading={loading}
-      columns={extendColumns({ columns, extendActionColumn })}
+      columns={extendColumns({
+        columns,
+        extendActionColumn,
+        currentPage: filter.page,
+      })}
       changeLocationSearch={changeLocationSearch}
       filter={filter}
       changeFilterValue={changeFilterValue}
       showSearch={showSearch}
       placeholderSearch={placeholderSearch}
       filterFields={filters}
+      useDefaultPagination={useDefaultPagination}
+      changePage={changePage}
+      resetFilter={resetFilter}
     />
   )
 }
@@ -83,6 +105,7 @@ const Table = ({ title, list, search, filters }) => {
 Table.defaultProps = {
   search: {},
   filters: [],
+  pagination: {},
 }
 
 export default Table

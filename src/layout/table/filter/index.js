@@ -9,6 +9,7 @@ const Filter = ({
   placeholderSearch,
   loading,
   filterFields,
+  resetFilter,
 }) => {
   const [filterCollapsed, setFilterCollapsed] = useState(false)
   return (
@@ -22,6 +23,7 @@ const Filter = ({
       placeholderSearch={placeholderSearch}
       loading={loading}
       filterFields={filterFields}
+      resetFilter={resetFilter}
     />
   )
 }

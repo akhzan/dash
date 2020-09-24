@@ -3,6 +3,7 @@ import { Table } from 'antd'
 
 import MainView from '../../layout/main/index.view'
 import Filter from './filter'
+import Pagination from './pagination'
 
 const TableView = ({
   title,
@@ -15,6 +16,9 @@ const TableView = ({
   showSearch,
   placeholderSearch,
   filterFields,
+  useDefaultPagination,
+  changePage,
+  resetFilter,
 }) => (
   <MainView title={title || 'Table'}>
     <Filter
@@ -25,6 +29,7 @@ const TableView = ({
       showSearch={showSearch}
       placeholderSearch={placeholderSearch}
       filterFields={filterFields}
+      resetFilter={resetFilter}
     />
     <Table
       size="middle"
@@ -33,7 +38,16 @@ const TableView = ({
       columns={columns}
       dataSource={data.data}
       scroll={{ x: true }}
+      pagination={useDefaultPagination}
     />
+    {!useDefaultPagination && (
+      <Pagination
+        loading={loading.list}
+        count={data.count}
+        changePage={changePage}
+        currentPage={filter.page}
+      />
+    )}
   </MainView>
 )
 

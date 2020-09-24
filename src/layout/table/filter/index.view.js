@@ -18,6 +18,7 @@ const FilterView = ({
   placeholderSearch,
   loading,
   filterFields,
+  resetFilter,
 }) => {
   const header = (
     <Row type="flex" justify="space-between" align="middle">
@@ -89,10 +90,7 @@ const FilterView = ({
                   onClick={() => changeLocationSearch()}>
                   Filter
                 </Button>
-                <Button
-                  size="small"
-                  disabled={loading}
-                  onClick={() => changeLocationSearch(true)}>
+                <Button size="small" disabled={loading} onClick={resetFilter}>
                   Reset
                 </Button>
               </Space>

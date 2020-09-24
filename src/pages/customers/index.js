@@ -36,8 +36,15 @@ const Customers = () => {
       defaultValue: '',
     },
   ]
+  const pagination = { useDefault: false }
   return (
-    <Table title="Customers" list={list} search={search} filters={filters} />
+    <Table
+      title="Customers"
+      list={list}
+      search={search}
+      filters={filters}
+      pagination={pagination}
+    />
   )
 }
 
