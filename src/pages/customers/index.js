@@ -5,6 +5,7 @@ import { CheckOutlined, StopOutlined } from '@ant-design/icons'
 import Table, { FILTER_FIELD_TYPES } from '../../layout/table'
 import { columns } from './columns'
 import { customersApi } from '../../api/customers'
+import { CUSTOMER_STATUS_FILTER } from '../../config/constants/customers'
 
 const Customers = () => {
   const list = {
@@ -28,25 +29,11 @@ const Customers = () => {
   }
   const filters = [
     {
-      type: FILTER_FIELD_TYPES.TEXT,
-      label: 'Search',
-      fieldName: 'search',
-      placeholder: 'Search',
-    },
-    { type: FILTER_FIELD_TYPES.DATE, label: 'Date', fieldName: 'date' },
-    {
       type: FILTER_FIELD_TYPES.SELECT,
-      label: 'Select',
-      fieldName: 'select',
-      placeholder: 'Select',
-      source: [{ code: '1', name: 'Option 1' }],
-      sourceLabel: 'name',
-      sourceValue: 'code',
-    },
-    {
-      type: FILTER_FIELD_TYPES.RANGE,
-      label: 'Range',
-      fieldName: ['startDate', 'endDate'],
+      label: 'Status',
+      fieldName: 'status',
+      source: CUSTOMER_STATUS_FILTER,
+      defaultValue: '',
     },
   ]
   return (

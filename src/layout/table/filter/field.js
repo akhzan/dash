@@ -4,6 +4,8 @@ import dayjs from 'dayjs'
 import Datepicker from '../../../components/datepicker'
 import { DATE_FORMAT_FILTER } from '../../../config/constants/datetime'
 
+// TODO: Add source API functionality in SELECT type
+
 export const filterFieldTypes = {
   TEXT: 'TEXT',
   SELECT: 'SELECT',
@@ -25,6 +27,7 @@ const FilterField = ({
   source,
   sourceLabel,
   sourceValue,
+  defaultValue,
   ...args
 }) => {
   let value = null
@@ -82,7 +85,7 @@ const FilterField = ({
         <Select
           className="w-full"
           {...args}
-          value={value}
+          value={value || defaultValue}
           onChange={(val) => onChange({ [fieldName]: val })}>
           {(source || []).map((s) => (
             <Select.Option

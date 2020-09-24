@@ -15,3 +15,10 @@ export const CUSTOMER_STATUS = {
     color: '#3b8ef3',
   },
 }
+
+export const CUSTOMER_STATUS_FILTER = [
+  { code: '', name: 'All Status' },
+  { code: 'A', name: 'Active' },
+  { code: 'EX', name: 'Dormant' },
+  { code: 'BL', name: 'Blocked' },
+]
