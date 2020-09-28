@@ -8,3 +8,16 @@
   padding: 0;
   padding-bottom: 0 !important;
 }
+
+.custom-drawer .ant-drawer-content-wrapper {
+  border-radius: 24px;
+}
+
+.custom-drawer .ant-drawer-content {
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
+}
+
+.ant-drawer-close:hover {
+  outline: 0;
+}

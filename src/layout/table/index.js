@@ -17,7 +17,14 @@ const Table = ({ title, list, search, filters, pagination }) => {
   const location = useLocation()
   const pathname = location.pathname.replace(PUBLIC_URL, '')
   const queryFromLocSearch = new URLSearchParams(location.search)
+
+  const modeParam = queryFromLocSearch.get('mode')
+  // const idParam = queryFromLocSearch.get('id')
+  queryFromLocSearch.delete('mode')
+  queryFromLocSearch.delete('id')
+
   const queryInString = queryFromLocSearch.toString()
+  console.log(queryFromLocSearch)
   const query = [...queryFromLocSearch.entries()].reduce(
     (prev, curr) => ({ ...prev, [curr[0]]: curr[1] }),
     {},
@@ -69,9 +76,19 @@ const Table = ({ title, list, search, filters, pagination }) => {
     setFilter(newFilter)
     changeUrl(newFilter)
   }
+  const openMode = (mode, id) => {
+    changeUrl({ ...filter, mode, id })
+  }
+  const closeMode = () => {
+    const newFilter = { ...filter }
+    delete newFilter.mode
+    delete newFilter.id
+    changeUrl(newFilter)
+  }
 
   // EFFECTS
   useEffect(() => {
+    // TODO: set detail when api of mode isn't available
     getData(query)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryInString])
@@ -84,6 +101,7 @@ const Table = ({ title, list, search, filters, pagination }) => {
         columns,
         extendActionColumn,
         currentPage: filter.page,
+        openMode,
       })}
       changeLocationSearch={changeLocationSearch}
       filter={filter}
@@ -93,6 +111,9 @@ const Table = ({ title, list, search, filters, pagination }) => {
       filterFields={filters}
       useDefaultPagination={useDefaultPagination}
       changePage={changePage}
+      openMode={openMode}
+      closeMode={closeMode}
+      mode={modeParam}
     />
   )
 }

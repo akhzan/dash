@@ -6,8 +6,14 @@ import {
   EyeOutlined,
   HistoryOutlined,
 } from '@ant-design/icons'
+import { TABLE_LAYOUT_MODES } from '../../config/constants/layout'
 
-export const extendColumns = ({ columns, extendActionColumn, currentPage }) => {
+export const extendColumns = ({
+  columns,
+  extendActionColumn,
+  currentPage,
+  openMode,
+}) => {
   const indexPage = parseInt(currentPage || 1) - 1
   return [
     {
@@ -27,7 +33,11 @@ export const extendColumns = ({ columns, extendActionColumn, currentPage }) => {
       render: (id, record) => (
         <Space>
           <Tooltip placement="bottom" title="View">
-            <Button shape="circle" icon={<EyeOutlined />} />
+            <Button
+              shape="circle"
+              onClick={() => openMode(TABLE_LAYOUT_MODES.VIEW, id)}
+              icon={<EyeOutlined />}
+            />
           </Tooltip>
           <Tooltip placement="bottom" title="Edit">
             <Button shape="circle" icon={<EditOutlined />} />

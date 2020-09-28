@@ -1,9 +1,10 @@
 import React from 'react'
-import { Table } from 'antd'
+import { Drawer, Table } from 'antd'
 
 import MainView from '../../layout/main/index.view'
 import Filter from './filter'
 import Pagination from './pagination'
+import Detail from '../detail'
 
 const TableView = ({
   title,
@@ -18,6 +19,8 @@ const TableView = ({
   filterFields,
   useDefaultPagination,
   changePage,
+  closeMode,
+  mode,
 }) => (
   <MainView title={title || 'Table'}>
     <Filter
@@ -46,6 +49,16 @@ const TableView = ({
         currentPage={filter.page}
       />
     )}
+    <Drawer
+      destroyOnClose
+      className="custom-drawer"
+      width="80%"
+      placement="right"
+      onClose={closeMode}
+      visible={!!mode}>
+      <div className="text-lg mb-10">Drawer</div>
+      <Detail />
+    </Drawer>
   </MainView>
 )
 
