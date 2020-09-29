@@ -43,15 +43,12 @@ const Table = ({
   const { api = () => {}, transform, columns = [], extendActionColumn } = list
   const { showSearch, placeholder: placeholderSearch } = search
   const { useDefault: useDefaultPagination = true } = pagination
-  const { content: viewContent } = view || {}
-  const { content: editContent } = edit || {}
-  const { content: createContent } = create || {}
   const contents = {
-    [TABLE_LAYOUT_MODES.VIEW]: viewContent,
-    [TABLE_LAYOUT_MODES.EDIT]: editContent,
-    [TABLE_LAYOUT_MODES.CREATE]: createContent,
+    [TABLE_LAYOUT_MODES.VIEW]: view?.content,
+    [TABLE_LAYOUT_MODES.EDIT]: edit?.content,
+    [TABLE_LAYOUT_MODES.CREATE]: create?.content,
   }
-  const matchedContent = contents[modeParam] || null
+  const matchedContent = contents[modeParam]
 
   // METHODS
   const getData = async (params) => {
