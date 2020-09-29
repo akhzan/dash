@@ -6,6 +6,7 @@ import Table, { FILTER_FIELD_TYPES } from '../../layout/table'
 import { columns } from './columns'
 import { customersApi } from '../../api/customers'
 import { CUSTOMER_STATUS_FILTER } from '../../config/constants/customers'
+import CustomerDetail from './detail'
 
 const Customers = () => {
   const list = {
@@ -36,6 +37,7 @@ const Customers = () => {
       defaultValue: '',
     },
   ]
+  const view = { content: <CustomerDetail /> }
   const pagination = { useDefault: false }
   return (
     <Table
@@ -44,6 +46,7 @@ const Customers = () => {
       search={search}
       filters={filters}
       pagination={pagination}
+      view={view}
     />
   )
 }

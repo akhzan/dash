@@ -4,9 +4,19 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { extendColumns } from './columns'
 import TableView from './index.view'
 import { PUBLIC_URL } from '../../config/url'
-import { filterFieldTypes } from './filter/field'
+import { filterFieldTypes } from '../../components/filter/field'
+import { TABLE_LAYOUT_MODES } from '../../config/constants/layout'
 
-const Table = ({ title, list, search, filters, pagination }) => {
+const Table = ({
+  title,
+  list,
+  search,
+  filters,
+  pagination,
+  view,
+  edit,
+  create,
+}) => {
   // STATES
   const [data, setData] = useState({})
   const [loading, setLoading] = useState({})
@@ -24,7 +34,6 @@ const Table = ({ title, list, search, filters, pagination }) => {
   queryFromLocSearch.delete('id')
 
   const queryInString = queryFromLocSearch.toString()
-  console.log(queryFromLocSearch)
   const query = [...queryFromLocSearch.entries()].reduce(
     (prev, curr) => ({ ...prev, [curr[0]]: curr[1] }),
     {},
@@ -34,6 +43,15 @@ const Table = ({ title, list, search, filters, pagination }) => {
   const { api = () => {}, transform, columns = [], extendActionColumn } = list
   const { showSearch, placeholder: placeholderSearch } = search
   const { useDefault: useDefaultPagination = true } = pagination
+  const { content: viewContent } = view || {}
+  const { content: editContent } = edit || {}
+  const { content: createContent } = create || {}
+  const contents = {
+    [TABLE_LAYOUT_MODES.VIEW]: viewContent,
+    [TABLE_LAYOUT_MODES.EDIT]: editContent,
+    [TABLE_LAYOUT_MODES.CREATE]: createContent,
+  }
+  const matchedContent = contents[modeParam] || null
 
   // METHODS
   const getData = async (params) => {
@@ -114,6 +132,7 @@ const Table = ({ title, list, search, filters, pagination }) => {
       openMode={openMode}
       closeMode={closeMode}
       mode={modeParam}
+      modeContent={matchedContent}
     />
   )
 }

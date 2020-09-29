@@ -2,7 +2,6 @@ import React from 'react'
 import { Drawer } from 'antd'
 
 import MainView from '../../layout/main/index.view'
-import Detail from '../detail'
 import Table from '../../components/table'
 
 const TableView = ({
@@ -20,6 +19,7 @@ const TableView = ({
   changePage,
   closeMode,
   mode,
+  modeContent,
 }) => (
   <MainView title={title || 'Table'}>
     <Table
@@ -45,7 +45,7 @@ const TableView = ({
       placement="right"
       onClose={closeMode}
       visible={!!mode}>
-      <Detail />
+      {modeContent}
     </Drawer>
   </MainView>
 )

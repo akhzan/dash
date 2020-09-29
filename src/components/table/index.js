@@ -18,17 +18,20 @@ const AppTable = ({
   changePage,
   currentPage,
   rowKey,
+  withoutFilter,
 }) => (
   <div>
-    <Filter
-      loading={loading}
-      changeLocationSearch={changeLocationSearch}
-      filter={filter}
-      changeFilterValue={changeFilterValue}
-      showSearch={showSearch}
-      placeholderSearch={placeholderSearch}
-      filterFields={filterFields}
-    />
+    {!withoutFilter && (
+      <Filter
+        loading={loading}
+        changeLocationSearch={changeLocationSearch}
+        filter={filter}
+        changeFilterValue={changeFilterValue}
+        showSearch={showSearch}
+        placeholderSearch={placeholderSearch}
+        filterFields={filterFields}
+      />
+    )}
     <Table
       size="middle"
       loading={loading}
