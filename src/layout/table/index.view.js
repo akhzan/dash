@@ -1,10 +1,9 @@
 import React from 'react'
-import { Drawer, Table } from 'antd'
+import { Drawer } from 'antd'
 
 import MainView from '../../layout/main/index.view'
-import Filter from './filter'
-import Pagination from './pagination'
 import Detail from '../detail'
+import Table from '../../components/table'
 
 const TableView = ({
   title,
@@ -23,7 +22,7 @@ const TableView = ({
   mode,
 }) => (
   <MainView title={title || 'Table'}>
-    <Filter
+    <Table
       loading={loading.list}
       changeLocationSearch={changeLocationSearch}
       filter={filter}
@@ -31,32 +30,21 @@ const TableView = ({
       showSearch={showSearch}
       placeholderSearch={placeholderSearch}
       filterFields={filterFields}
-    />
-    <Table
-      size="middle"
-      loading={loading.list}
-      rowKey="idx"
       columns={columns}
-      dataSource={data.data}
-      scroll={{ x: true }}
-      pagination={useDefaultPagination}
+      data={data}
+      useDefaultPagination={useDefaultPagination}
+      changePage={changePage}
+      currentPage={filter.page}
+      rowKey="idx"
     />
-    {!useDefaultPagination && (
-      <Pagination
-        loading={loading.list}
-        count={data.count}
-        changePage={changePage}
-        currentPage={filter.page}
-      />
-    )}
     <Drawer
       destroyOnClose
       className="custom-drawer"
+      title="Nice"
       width="80%"
       placement="right"
       onClose={closeMode}
       visible={!!mode}>
-      <div className="text-lg mb-10">Drawer</div>
       <Detail />
     </Drawer>
   </MainView>

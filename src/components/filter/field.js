@@ -1,8 +1,8 @@
 import React from 'react'
 import { Input, Select } from 'antd'
 import dayjs from 'dayjs'
-import Datepicker from '../../../components/datepicker'
-import { DATE_FORMAT_FILTER } from '../../../config/constants/datetime'
+import Datepicker from '../datepicker'
+import { DATE_FORMAT_FILTER } from '../../config/constants/datetime'
 
 // TODO: Add source API functionality in SELECT type
 
